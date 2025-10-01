@@ -1,0 +1,21 @@
+package com.lucas.storefront.service.impl;
+
+import com.lucas.storefront.dto.StockStatusMessage;
+import com.lucas.storefront.service.IProductChangeAvailabilityConsumer;
+import com.lucas.storefront.service.IProductService;
+import lombok.AllArgsConstructor;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.stereotype.Service;
+
+@AllArgsConstructor
+@Service
+public class ProductChangeAvailabilityConsumerImpl implements IProductChangeAvailabilityConsumer {
+
+    private final IProductService service;
+
+    @RabbitListener(queues = "${spring.rabbitmq.queue.product-change-availability}")
+    @Override
+    public void receive(StockStatusMessage message) {
+        service.changeActivated(message.id(), message.active());
+    }
+}
