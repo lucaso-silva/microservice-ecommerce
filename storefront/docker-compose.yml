@@ -38,7 +38,7 @@ services:
       WAREHOUSE_BASE_PATH: http://warehouse:8082
     ports:
       - "8081:8081"
-      - "5005:5005"
+      - "5006:5005"
     volumes:
       - .:/storefront:z
     networks:
