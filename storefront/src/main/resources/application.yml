@@ -2,6 +2,7 @@ server:
   servlet:
     context-path: /storefront
   port: 8081
+
 spring:
   application:
     name: storefront
@@ -30,5 +31,10 @@ spring:
     virtual-host: /
     queue:
       product-change-availability: product.change.availability.queue
-  warehouse:
-    base-path: http://warehouseapp:8080/warehouse
+    exchange:
+      product-change-availability: product.change.availability.exchange
+    routing-key:
+      product-change-availability: product.change.availability.routing.key
+
+warehouse:
+  base-path: http://warehouseapp:8080/warehouse

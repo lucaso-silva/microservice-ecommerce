@@ -1,51 +1,20 @@
-#services:
-#  storefrontapp:
-#    build:
-#      context: .
-#    command: bash start-dev.sh
-#    environment:
-#      SPRING_PROFILES_ACTIVE: dev
-#    ports:
-#      - "8081:8081"
-#      - "5006:5005"
-#    volumes:
-#      - .:/storefront:z
-#    networks:
-#      - ecommerce-net
-#networks:
-#  ecommerce-net:
-#    name: ecommerce-net
-#    external: true
-#volumes:
-#    db:
-
 services:
-#  warehouse:
-#    build:
-#      context: ../warehouse   # adjust path to your warehouse project folder
-#    container_name: warehouse
-#    ports:
-#      - "8082:8082"
-#    networks:
-#      - ecommerce-net
-
   storefrontapp:
     build:
       context: .
-    command: bash start-dev.sh
+#    command: bash start-dev.sh   -> command already present in Dockerfile
     environment:
       SPRING_PROFILES_ACTIVE: dev
-      WAREHOUSE_BASE_PATH: http://warehouse:8082
     ports:
       - "8081:8081"
-      - "5006:5005"
+      - "5006:5006"
     volumes:
       - .:/storefront:z
     networks:
       - ecommerce-net
-#    depends_on:
-#      - warehouse
-
 networks:
   ecommerce-net:
+    name: ecommerce-net
     external: true
+volumes:
+  db:
