@@ -41,6 +41,10 @@ public class StockEntity {
     @JoinColumn(name="product_id", nullable=false)
     private ProductEntity product;
 
+    public boolean isUnavailable() {
+        return status == UNAVAILABLE;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 import static com.lucas.warehouse.entity.StockStatus.AVAILABLE;
@@ -34,6 +35,14 @@ public class ProductEntity {
                 .orElseThrow();
         stock.decAmount();
         return stock;
+    }
+
+    public BigDecimal getPrice(){
+        return this.stocks.stream()
+                .filter(s -> s.getStatus().equals(AVAILABLE))
+                .min(Comparator.comparing(StockEntity::getSoldPrice))
+                .orElseThrow()
+                .getSoldPrice();
     }
 
     @Override
