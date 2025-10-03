@@ -3,6 +3,7 @@ package com.lucas.warehouse.service.impl;
 import com.lucas.warehouse.dto.StockStatusMessage;
 import com.lucas.warehouse.entity.StockEntity;
 import com.lucas.warehouse.entity.StockStatus;
+import com.lucas.warehouse.repository.ProductRepository;
 import com.lucas.warehouse.repository.StockRepository;
 import com.lucas.warehouse.service.IProductChangeAvailabilityProducer;
 import com.lucas.warehouse.service.IProductService;
@@ -20,12 +21,14 @@ import static com.lucas.warehouse.entity.StockStatus.UNAVAILABLE;
 public class StockServiceImpl implements IStockService {
 
     private final StockRepository repository;
-    private final IProductService productService;
+//    private final IProductService productService;
+    private final ProductRepository productRepository;
     private final IProductChangeAvailabilityProducer producer;
 
     @Override
     public StockEntity save(StockEntity entity) {
-        entity.setProduct(productService.findById(entity.getProduct().getId()));
+        var product = productRepository.findById(entity.getProduct().getId()).orElseThrow();
+        entity.setProduct(product);
         return repository.save(entity);
     }
 
